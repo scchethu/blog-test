@@ -12,7 +12,7 @@ class CommentController extends Controller
     {
         $this->middleware('auth:api');
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +37,7 @@ class CommentController extends Controller
         $input = $request->all();
 
         $request->validate([
-            'body'=>'required',
+            'body' => 'required',
         ]);
 
         $input['user_id'] = auth()->user()->id;

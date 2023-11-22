@@ -14,6 +14,7 @@ class PostController extends Controller
     {
         $this->middleware('auth:api');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +22,7 @@ class PostController extends Controller
 
     public function index()
     {
-        return Post::with(['comments','comments.replies'])->paginate();
+        return Post::with(['comments', 'comments.replies'])->paginate();
     }
 
     /**
@@ -29,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+//
     }
 
     /**
@@ -39,7 +40,7 @@ class PostController extends Controller
     {
         $input = $request->all();
 
-        return  Post::create($input);
+        return Post::create($input);
 
     }
 
@@ -48,7 +49,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+//
     }
 
     /**
@@ -56,22 +57,16 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+//
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostRequest $request, string $id)
     {
         $input = $request->all();
-
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-
-       return Post::find($id)->update($input);
+        return Post::find($id)->update($input);
     }
 
     /**
@@ -79,11 +74,11 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        Comment::where('post_id',$id)->delete();
-         Post::destroy($id);
+        Comment::where('post_id', $id)->delete();
+        Post::destroy($id);
         return response()->json([
             'status' => 'success',
             'message' => 'Deleted',
-        ],200);
+        ], 200);
     }
 }
